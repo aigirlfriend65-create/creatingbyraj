@@ -1,150 +1,10 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Wish</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Gift Box Opening Screen */
-        #gift-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #111;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
-        }
-
-        #main-content {
-            display: none;
-            padding: 20px;
-        }
-
-        /* Wish Card Container */
-        .card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        /* Circular Profile Photo */
-        .profile-img-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .profile-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        h1 {
-            font-size: 28px;
-            margin: 10px 0;
-            color: #ffe600;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .message-box {
-            font-size: 18px;
-            margin: 20px 0;
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        /* Creator Section */
-        .creator-section {
-            background: #fff;
-            color: #333;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 400px;
-            margin: 40px auto;
-            text-align: left;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .creator-section h3 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #ff416c;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        .btn-create {
-            background: #ff416c;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-create:hover {
-            background: #e0355b;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -159,7 +19,7 @@
         <div class="card">
             <!-- গোল ছবি -->
             <div class="profile-img-container">
-                <img src="my-photo.jpg" alt="Profile Photo">
+                <img id="profile-img" src="my-photo.jpg" alt="Profile Photo">
             </div>
 
             <!-- কেক ও অ্যানিমেশন হেডিং -->
@@ -190,40 +50,6 @@
         </div>
     </div>
 
-    <script>
-        // URL থেকে নাম বা মেসেজ রিড করার জন্য (Query Parameters)
-        const urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.has('name')) {
-            document.getElementById('display-name').innerText = urlParams.get('name');
-        }
-        if(urlParams.has('msg')) {
-            document.getElementById('display-message').innerText = urlParams.get('msg');
-        }
-
-        function openGift() {
-            const overlay = document.getElementById('gift-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            }, 500); // ২ সেকেন্ড অ্যানিমেশনের মতো স্মুথ ট্রানজিশন
-        }
-
-        function generateWish() {
-            const name = document.getElementById('input-name').value;
-            const msg = document.getElementById('input-message').value;
-            
-            if(!name) {
-                alert('দয়া করে নাম লিখুন!');
-                return;
-            }
-
-            // লিঙ্কের মাধ্যমে শেয়ার করার সিস্টেম তৈরি
-            const currentUrl = window.location.href.split('?')[0];
-            const generatedLink = `${currentUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}`;
-            
-            prompt("আপনার উইশ লিংক তৈরি হয়ে গেছে! এটি কপি করে WhatsApp-এ শেয়ার করুন:", generatedLink);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
