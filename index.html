@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Wish</title>
     <style>
-        * {
-            box-sizing: border-box;
+        body {
             margin: 0;
             padding: 0;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: #333;
             text-align: center;
-            min-height: 100vh;
+            color: #fff;
             overflow-x: hidden;
-            padding-bottom: 50px;
         }
-        /* Gift Box Opening Screen with 2 Seconds Animation Effect */
-        #gift-screen {
+
+        /* Gift Box Opening Screen */
+        #gift-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -32,122 +28,202 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .gift-box {
-            font-size: 90px;
-            cursor: pointer;
-            animation: bounce 1.2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0) scale(1);}
-            40% {transform: translateY(-35px) scale(1.1);}
-            60% {transform: translateY(-18px) scale(1.05);}
-        }
-        #gift-screen p {
-            color: #fff;
-            margin-top: 25px;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            transition: opacity 0.5s ease;
         }
 
-        /* Main Content Container */
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
+        .gift-box {
+            font-size: 80px;
+            cursor: pointer;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        #main-content {
             display: none;
+            padding: 20px;
         }
+
+        /* Wish Card Container */
         .card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 30px 20px;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
+            padding: 30px;
+            max-width: 400px;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.3);
         }
-        h1 {
-            color: #ff4757;
-            font-size: 30px;
-            margin-bottom: 15px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Round Profile Photo at the Center */
-        .profile-container {
-            width: 140px;
-            height: 140px;
+
+        /* Circular Profile Photo */
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
             margin: 0 auto 20px auto;
             border-radius: 50%;
-            border: 5px solid #ff4757;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            background: #eee;
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .profile-container img {
+
+        .profile-img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
-        /* Decorations (Cake, Firecrackers, etc.) */
-        .decorations {
-            font-size: 30px;
-            margin: 15px 0;
-            animation: shake 1s infinite alternate;
-        }
-        @keyframes shake {
-            0% { transform: rotate(-3deg); }
-            100% { transform: rotate(3deg); }
+
+        h1 {
+            font-size: 28px;
+            margin: 10px 0;
+            color: #ffe600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .message-box {
             font-size: 18px;
-            color: #444;
-            background: #fff5f5;
+            margin: 20px 0;
+            background: rgba(0,0,0,0.2);
             padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid #ff4757;
-            line-height: 1.5;
-        }
-        .sender-name {
-            font-weight: bold;
-            color: #2ed573;
-            font-size: 20px;
-            margin-top: 10px;
         }
 
-        /* Wish Creator Section */
+        /* Creator Section */
         .creator-section {
             background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 25px 20px;
-            margin-top: 30px;
-            text-align: left;
-        }
-        .creator-section h2 {
-            font-size: 22px;
             color: #333;
-            margin-bottom: 15px;
-            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
+
+        .creator-section h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ff416c;
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 600;
-            color: #555;
+            font-weight: bold;
             font-size: 14px;
         }
-        .form-group input, .form
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .btn-create {
+            background: #ff416c;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-create:hover {
+            background: #e0355b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Gift Box Overlay -->
+    <div id="gift-overlay" onclick="openGift()">
+        <div class="gift-box">🎁</div>
+        <p style="margin-top: 15px; font-size: 20px;">উপহারটি খুলতে ট্যাপ করুন!</p>
+    </div>
+
+    <!-- Main Wish Content -->
+    <div id="main-content">
+        <div class="card">
+            <!-- গোল ছবি -->
+            <div class="profile-img-container">
+                <img src="my-photo.jpg" alt="Profile Photo">
+            </div>
+
+            <!-- কেক ও অ্যানিমেশন হেডিং -->
+            <h1>🎂 হ্যাপি জন্মদিন! 🎉</h1>
+            <p style="font-size: 22px;" id="display-name">রাজ খান</p>
+            
+            <div class="message-box" id="display-message">
+                তোমার জীবনের প্রতিটি দিন আনন্দ ও খুশিতে ভরে উঠুক। শুভ জন্মদিন!
+            </div>
+        </div>
+
+        <!-- Create Your Wish Card Section -->
+        <div class="creator-section">
+            <h3>আপনার নিজের উইশ কার্ড তৈরি করুন</h3>
+            <div class="form-group">
+                <label>এন্টার ইউর নাম:</label>
+                <input type="text" id="input-name" placeholder="আপনার নাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label>এন্টার ইউর মেসেজ:</label>
+                <textarea id="input-message" rows="3" placeholder="আপনার ইচ্ছামতো মেসেজ লিখুন"></textarea>
+            </div>
+            <div class="form-group">
+                <label>আপলোড ফটো:</label>
+                <input type="file" id="input-photo" accept="image/*">
+            </div>
+            <button class="btn-create" onclick="generateWish()">ক্রিয়েট উইশ</button>
+        </div>
+    </div>
+
+    <script>
+        // URL থেকে নাম বা মেসেজ রিড করার জন্য (Query Parameters)
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('name')) {
+            document.getElementById('display-name').innerText = urlParams.get('name');
+        }
+        if(urlParams.has('msg')) {
+            document.getElementById('display-message').innerText = urlParams.get('msg');
+        }
+
+        function openGift() {
+            const overlay = document.getElementById('gift-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }, 500); // ২ সেকেন্ড অ্যানিমেশনের মতো স্মুথ ট্রানজিশন
+        }
+
+        function generateWish() {
+            const name = document.getElementById('input-name').value;
+            const msg = document.getElementById('input-message').value;
+            
+            if(!name) {
+                alert('দয়া করে নাম লিখুন!');
+                return;
+            }
+
+            // লিঙ্কের মাধ্যমে শেয়ার করার সিস্টেম তৈরি
+            const currentUrl = window.location.href.split('?')[0];
+            const generatedLink = `${currentUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}`;
+            
+            prompt("আপনার উইশ লিংক তৈরি হয়ে গেছে! এটি কপি করে WhatsApp-এ শেয়ার করুন:", generatedLink);
+        }
+    </script>
+</body>
+</html>
