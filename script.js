@@ -1,4 +1,4 @@
-// Read Name and Photo from URL Parameters
+// URL Parameters থেকে নাম ও ছবি রিড করা
 const urlParams = new URLSearchParams(window.location.search);
 const customName = urlParams.get('name');
 const customPhoto = urlParams.get('photo');
@@ -7,23 +7,51 @@ const wishSection = document.getElementById('wish-section');
 const createSection = document.getElementById('create-section');
 const birthdayName = document.getElementById('birthday-name');
 const birthdayPhoto = document.getElementById('birthday-photo');
+const wishMessageElement = document.getElementById('wish-message');
 
-if (customName && customPhoto) {
+const defaultMessage = "May your day be filled with lots of love, laughter, and happiness. Wishing you a fantastic and glorious year ahead!";
+
+if (customName) {
     birthdayName.innerText = decodeURIComponent(customName);
+}
+
+if (customPhoto) {
     birthdayPhoto.src = decodeURIComponent(customPhoto);
 }
 
-// Form Submission to Generate Custom Link
+// Typewriter Effect Function
+let i = 0;
+function typeWriter() {
+    if (i < defaultMessage.length) {
+        wishMessageElement.innerHTML += defaultMessage.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40); // টাইপ হওয়ার স্পিড (মিলিভিসেন্ড)
+    }
+}
+// পেজ লোড হওয়ার পর টাইপিং শুরু হবে
+window.onload = function() {
+    typeWriter();
+};
+
+// লোকাল ফাইলকে Base64-এ কনভার্ট করে লিংক তৈরি করার ফর্ম লজিক
 document.getElementById('wish-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('input-name').value;
-    const photo = document.getElementById('input-photo').value;
-    
-    const currentUrl = window.location.origin + window.location.pathname;
-    const finalLink = `${currentUrl}?name=${encodeURIComponent(name)}&photo=${encodeURIComponent(photo)}`;
-    
-    document.getElementById('final-link').value = finalLink;
-    document.getElementById('generated-link-box').classList.remove('hidden');
+    const photoInput = document.getElementById('input-photo').files[0];
+
+    if (photoInput) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64Photo = event.target.result;
+            
+            const currentUrl = window.location.origin + window.location.pathname;
+            const finalLink = `${currentUrl}?name=${encodeURIComponent(name)}&photo=${encodeURIComponent(base64Photo)}`;
+            
+            document.getElementById('final-link').value = finalLink;
+            document.getElementById('generated-link-box').classList.remove('hidden');
+        };
+        reader.readAsDataURL(photoInput);
+    }
 });
 
 // Copy Link Button
@@ -62,13 +90,12 @@ const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-// Create 3D Floating Particles
 const geometry = new THREE.BufferGeometry();
 const count = 800;
 const positions = new Float32Array(count * 3);
 
-for(let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 12;
+for(let j = 0; j < count * 3; j++) {
+    positions[j] = (Math.random() - 0.5) * 12;
 }
 
 geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -76,9 +103,9 @@ const material = new THREE.PointsMaterial({ size: 0.035, color: 0xff007f });
 const particles = new THREE.Points(geometry, material);
 scene.add(particles);
 
+camera.deviceOrientation = true;
 camera.position.z = 3;
 
-// Animation Loop
 function animate() {
     requestAnimationFrame(animate);
     particles.rotation.x += 0.001;
@@ -87,7 +114,6 @@ function animate() {
 }
 animate();
 
-// Handle Window Resize
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
