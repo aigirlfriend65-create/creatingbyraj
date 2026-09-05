@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday! 🎂</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
@@ -17,40 +17,58 @@
     <!-- 3D Canvas Background -->
     <div id="canvas-container"></div>
 
+    <!-- 1. Gift Box Opening Screen -->
+    <div id="gift-overlay" class="gift-overlay">
+        <div class="gift-box-container" id="open-gift-btn">
+            <div class="gift-box">🎁</div>
+            <p>Tap to Open Your Gift! ✨</p>
+        </div>
+    </div>
+
     <!-- Main Content Container -->
-    <div class="container">
-        <!-- Wish View -->
-        <div id="wish-section" class="card">
+    <div class="container main-content hidden" id="main-content">
+        
+        <!-- Wish Card Section -->
+        <div class="card">
             <div class="photo-frame">
                 <img id="birthday-photo" src="https://via.placeholder.com/150" alt="Birthday Person">
             </div>
-            <h1 class="glow-text">Happy Birthday!</h1>
+            <h1 class="glow-text">Happy Birthday! 🎂</h1>
             <h2 id="birthday-name" class="name-title">Dear Friend</h2>
             <p id="wish-message" class="wish-message"></p>
-            <button id="celebrate-btn">🎉 Click for Surprise!</button>
-            <button id="create-own-btn" class="secondary-btn">✨ Create Your Own Wish</button>
+            <div class="celebration-icons">🎆 🥳 🎈 🎇</div>
+            <button id="celebrate-btn">🎉 Celebrate with Fireworks!</button>
         </div>
 
-        <!-- Input Form View (To create custom link with Image Upload) -->
-        <div id="create-section" class="card hidden">
-            <h2>Create Your Birthday Wish</h2>
+        <!-- Scroll Down Section to Create Own Wish -->
+        <div class="create-card-section">
+            <h2>✨ Create Your Own Wish Card ✨</h2>
             <form id="wish-form">
-                <input type="text" id="input-name" placeholder="Enter friend's name..." required>
+                <div class="input-group">
+                    <label>Enter Your Name / Friend's Name:</label>
+                    <input type="text" id="input-name" placeholder="e.g. Sajidur Rahaman" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Enter Custom Wish Message:</label>
+                    <textarea id="input-custom-msg" placeholder="Write your special birthday message here..." rows="3" required></textarea>
+                </div>
                 
-                <div class="file-upload-box">
-                    <label for="input-photo">Upload Birthday Photo:</label>
+                <div class="input-group">
+                    <label>Upload Your Photo:</label>
                     <input type="file" id="input-photo" accept="image/*" required>
                 </div>
 
-                <button type="submit">Generate Link</button>
+                <button type="submit" class="generate-btn">🚀 Create Wish Link</button>
             </form>
+
             <div id="generated-link-box" class="hidden">
-                <p>Your special link is ready:</p>
+                <p>Your special link is ready! Share it now:</p>
                 <input type="text" id="final-link" readonly>
-                <button id="copy-btn">Copy Link</button>
+                <button id="copy-btn" class="copy-btn">📋 Copy Link</button>
             </div>
-            <button id="back-btn" class="secondary-btn" style="margin-top: 15px;">Back to Wish</button>
         </div>
+
     </div>
 
     <script src="script.js"></script>
