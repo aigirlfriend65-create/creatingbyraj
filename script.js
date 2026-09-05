@@ -25,10 +25,9 @@ function typeWriter() {
     if (i < defaultMessage.length) {
         wishMessageElement.innerHTML += defaultMessage.charAt(i);
         i++;
-        setTimeout(typeWriter, 40); // টাইপ হওয়ার স্পিড (মিলিভিসেন্ড)
+        setTimeout(typeWriter, 40);
     }
 }
-// পেজ লোড হওয়ার পর টাইপিং শুরু হবে
 window.onload = function() {
     typeWriter();
 };
@@ -54,12 +53,24 @@ document.getElementById('wish-form').addEventListener('submit', function(e) {
     }
 });
 
-// Copy Link Button
-document.getElementById('copy-btn').addEventListener('click', function() {
+// Modern & Secure Copy Link Function (Fixes copy fail issue)
+document.getElementById('copy-btn').addEventListener('click', async function() {
     const linkInput = document.getElementById('final-link');
-    linkInput.select();
-    document.execCommand('copy');
-    alert('Link copied to clipboard! Now you can share it with your friend.');
+    
+    try {
+        await navigator.clipboard.writeText(linkInput.value);
+        alert('Link copied successfully! Now you can share it.');
+    } catch (err) {
+        // Fallback method if Clipboard API is blocked
+        linkInput.select();
+        linkInput.setSelectionRange(0, 99999); // For mobile devices
+        try {
+            document.execCommand('copy');
+            alert('Link copied successfully!');
+        } catch (error) {
+            alert('Failed to copy. Please select the text manually and copy.');
+        }
+    }
 });
 
 // Toggle to Create Section
@@ -103,7 +114,6 @@ const material = new THREE.PointsMaterial({ size: 0.035, color: 0xff007f });
 const particles = new THREE.Points(geometry, material);
 scene.add(particles);
 
-camera.deviceOrientation = true;
 camera.position.z = 3;
 
 function animate() {
