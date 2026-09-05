@@ -26,17 +26,22 @@
             </div>
             <h1 class="glow-text">Happy Birthday!</h1>
             <h2 id="birthday-name" class="name-title">Dear Friend</h2>
-            <p class="wish-message">May your day be filled with lots of love, laughter, and happiness. Wishing you a fantastic year ahead!</p>
+            <p id="wish-message" class="wish-message"></p>
             <button id="celebrate-btn">🎉 Click for Surprise!</button>
             <button id="create-own-btn" class="secondary-btn">✨ Create Your Own Wish</button>
         </div>
 
-        <!-- Input Form View (To create custom link) -->
+        <!-- Input Form View (To create custom link with Image Upload) -->
         <div id="create-section" class="card hidden">
             <h2>Create Your Birthday Wish</h2>
             <form id="wish-form">
                 <input type="text" id="input-name" placeholder="Enter friend's name..." required>
-                <input type="text" id="input-photo" placeholder="Enter direct image URL..." required>
+                
+                <div class="file-upload-box">
+                    <label for="input-photo">Upload Birthday Photo:</label>
+                    <input type="file" id="input-photo" accept="image/*" required>
+                </div>
+
                 <button type="submit">Generate Link</button>
             </form>
             <div id="generated-link-box" class="hidden">
