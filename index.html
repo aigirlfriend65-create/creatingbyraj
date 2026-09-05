@@ -1,42 +1,50 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শুভ জন্মদিন!</title>
+    <title>Happy Birthday!</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
+    <!-- 3D Canvas Background -->
     <div id="canvas-container"></div>
 
+    <!-- Main Content Container -->
     <div class="container">
-        <div id="create-section" class="card hidden">
-        <h2>আপনার জন্মদিনের উইশ তৈরি করুন</h2>
-        <form id="wish-form">
-            <input type="text" id="input-name" placeholder="বন্ধুর নাম লিখুন..." required>
-            <input type="text" id="input-photo" placeholder="ছবির ডিরেক্ট লিংক (Image URL) দিন" required>
-            <button type="submit">লিংক তৈরি করুন</button>
-        </form>
-        <div id="generated-link-box" class="hidden">
-            <p>আপনার বিশেষ লিংকটি তৈরি হয়েছে:</p>
-            <input type="text" id="final-link" readonly>
-            <button id="copy-btn">লিংক কপি করুন</button>
-        </div>
-    </div>
-
+        <!-- Wish View -->
         <div id="wish-section" class="card">
             <div class="photo-frame">
                 <img id="birthday-photo" src="https://via.placeholder.com/150" alt="Birthday Person">
             </div>
-            <h1 class="glow-text">শুভ জন্মদিন!</h1>
-            <h2 id="birthday-name" class="name-title">প্রিয় বন্ধু</h2>
-            <p class="wish-message">তোমার জীবনটা অনাবিল সুখ, আনন্দ এবং সাফল্যে ভরে উঠুক। আজকের দিনটি তোমার সারাজীবন মনে থাকুক!</p>
-            <button id="celebrate-btn">🎉 সারপ্রাইজ দেখুন!</button>
-            <button id="create-own-btn" class="secondary-btn">✨ নিজের জন্য এমন উইশ তৈরি করুন</button>
+            <h1 class="glow-text">Happy Birthday!</h1>
+            <h2 id="birthday-name" class="name-title">Dear Friend</h2>
+            <p class="wish-message">May your day be filled with lots of love, laughter, and happiness. Wishing you a fantastic year ahead!</p>
+            <button id="celebrate-btn">🎉 Click for Surprise!</button>
+            <button id="create-own-btn" class="secondary-btn">✨ Create Your Own Wish</button>
+        </div>
+
+        <!-- Input Form View (To create custom link) -->
+        <div id="create-section" class="card hidden">
+            <h2>Create Your Birthday Wish</h2>
+            <form id="wish-form">
+                <input type="text" id="input-name" placeholder="Enter friend's name..." required>
+                <input type="text" id="input-photo" placeholder="Enter direct image URL..." required>
+                <button type="submit">Generate Link</button>
+            </form>
+            <div id="generated-link-box" class="hidden">
+                <p>Your special link is ready:</p>
+                <input type="text" id="final-link" readonly>
+                <button id="copy-btn">Copy Link</button>
+            </div>
+            <button id="back-btn" class="secondary-btn" style="margin-top: 15px;">Back to Wish</button>
         </div>
     </div>
 
