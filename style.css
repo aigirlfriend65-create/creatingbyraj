@@ -83,6 +83,7 @@ body {
     line-height: 1.6;
     margin-bottom: 25px;
     color: #ddd;
+    min-height: 60px; /* যাতে টেক্সট টাইপ হওয়ার সময় পেজ লাফ না দেয় */
 }
 
 button {
@@ -122,15 +123,29 @@ input[type="text"] {
     padding: 12px;
     margin: 10px 0;
     background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 2, 0.3);
     border-radius: 8px;
     color: white;
     font-size: 1rem;
     outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-input[type="text"]:focus {
-    border-color: #00ffff;
+.file-upload-box {
+    text-align: left;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.file-upload-box input[type="file"] {
+    width: 100%;
+    margin-top: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
 }
 
 @keyframes fadeIn {
