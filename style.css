@@ -9,10 +9,11 @@ body {
     background-color: #050505;
     color: #fff;
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    padding: 20px 0;
 }
 
 #canvas-container {
@@ -24,12 +25,49 @@ body {
     z-index: -1;
 }
 
+/* Gift Box Opening Overlay */
+.gift-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.gift-box-container {
+    text-align: center;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+.gift-box {
+    font-size: 6rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 20px #ff007f);
+}
+
+.gift-box-container p {
+    font-size: 1.2rem;
+    color: #00ffff;
+    font-weight: 600;
+}
+
 .container {
     position: relative;
     z-index: 2;
     width: 90%;
-    max-width: 450px;
+    max-width: 500px;
     text-align: center;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .card {
@@ -39,21 +77,17 @@ body {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 1.2s ease-in-out;
-}
-
-.hidden {
-    display: none !important;
+    margin-bottom: 30px;
 }
 
 .photo-frame {
-    width: 130px;
-    height: 130px;
+    width: 140px;
+    height: 140px;
     margin: 0 auto 20px auto;
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid #ff007f;
-    box-shadow: 0 0 20px #ff007f;
+    box-shadow: 0 0 25px #ff007f;
     animation: pulse 2s infinite;
 }
 
@@ -68,7 +102,7 @@ body {
     font-size: 2.5rem;
     color: #ff007f;
     text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .name-title {
@@ -79,11 +113,17 @@ body {
 }
 
 .wish-message {
-    font-size: 1rem;
+    font-size: 1.05rem;
     line-height: 1.6;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     color: #ddd;
-    min-height: 60px; /* যাতে টেক্সট টাইপ হওয়ার সময় পেজ লাফ না দেয় */
+    min-height: 50px;
+}
+
+.celebration-icons {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    letter-spacing: 5px;
 }
 
 button {
@@ -98,7 +138,6 @@ button {
     transition: 0.3s;
     font-weight: 600;
     width: 100%;
-    margin-top: 10px;
 }
 
 button:hover {
@@ -106,55 +145,87 @@ button:hover {
     box-shadow: 0 8px 20px rgba(255, 0, 127, 0.6);
 }
 
-.secondary-btn {
-    background: transparent;
-    border: 2px solid #00ffff;
+/* Create Section */
+.create-card-section {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
+.create-card-section h2 {
+    text-align: center;
+    font-size: 1.4rem;
     color: #00ffff;
-    box-shadow: none;
+    margin-bottom: 20px;
 }
 
-.secondary-btn:hover {
-    background: #00ffff;
-    color: #000;
+.input-group {
+    margin-bottom: 15px;
 }
 
-input[type="text"] {
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #ccc;
+}
+
+input[type="text"], textarea {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 2, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: white;
     font-size: 1rem;
     outline: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Poppins', sans-serif;
 }
 
-.file-upload-box {
-    text-align: left;
-    margin: 15px 0;
-    font-size: 0.9rem;
-    color: #ccc;
+input[type="text"]:focus, textarea:focus {
+    border-color: #00ffff;
 }
 
-.file-upload-box input[type="file"] {
+input[type="file"] {
     width: 100%;
-    margin-top: 5px;
-    background: rgba(0, 0, 0, 0.5);
     padding: 8px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
+    font-size: 0.9rem;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+#generated-link-box {
+    margin-top: 20px;
+    background: rgba(0, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px dashed #00ffff;
+}
+
+#generated-link-box p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #00ffff;
+}
+
+.copy-btn {
+    background: linear-gradient(45deg, #00b4db, #0083b0);
+    margin-top: 10px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 10px #ff007f; }
-    50% { transform: scale(1.05); box-shadow: 0 0 25px #ff007f; }
-    100% { transform: scale(1); box-shadow: 0 0 10px #ff007f; }
+    0% { transform: scale(1); box-shadow: 0 0 15px #ff007f; }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px #ff007f; }
+    100% { transform: scale(1); box-shadow: 0 0 15px #ff007f; }
 }
