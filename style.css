@@ -1,231 +1,139 @@
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #050505;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
     color: #fff;
     overflow-x: hidden;
-    min-height: 100vh;
+}
+
+/* Gift Box Opening Screen */
+#gift-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-}
-
-#canvas-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-/* Gift Box Opening Overlay */
-.gift-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(5, 5, 5, 0.95);
-    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
     transition: opacity 0.5s ease;
 }
 
-.gift-box-container {
-    text-align: center;
-    cursor: pointer;
-    animation: bounce 2s infinite;
-}
-
 .gift-box {
-    font-size: 6rem;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 0 20px #ff007f);
+    font-size: 80px;
+    cursor: pointer;
+    animation: bounce 1s infinite alternate;
 }
 
-.gift-box-container p {
-    font-size: 1.2rem;
-    color: #00ffff;
-    font-weight: 600;
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
 }
 
-.container {
-    position: relative;
-    z-index: 2;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
+#main-content {
+    display: none;
+    padding: 20px;
 }
 
-.hidden {
-    display: none !important;
-}
-
+/* Wish Card Container */
 .card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    margin-bottom: 30px;
+    padding: 30px;
+    max-width: 400px;
+    margin: 30px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.3);
 }
 
-.photo-frame {
-    width: 140px;
-    height: 140px;
+/* Circular Profile Photo */
+.profile-img-container {
+    width: 150px;
+    height: 150px;
     margin: 0 auto 20px auto;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #ff007f;
-    box-shadow: 0 0 25px #ff007f;
-    animation: pulse 2s infinite;
+    border: 4px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.photo-frame img {
+.profile-img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.glow-text {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.5rem;
-    color: #ff007f;
-    text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
-    margin-bottom: 5px;
+h1 {
+    font-size: 28px;
+    margin: 10px 0;
+    color: #ffe600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.name-title {
-    font-size: 1.8rem;
-    color: #00ffff;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px #00ffff;
-}
-
-.wish-message {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: #ddd;
-    min-height: 50px;
-}
-
-.celebration-icons {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    letter-spacing: 5px;
-}
-
-button {
-    background: linear-gradient(45deg, #ff007f, #7f00ff);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1rem;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 0, 127, 0.4);
-    transition: 0.3s;
-    font-weight: 600;
-    width: 100%;
-}
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 0, 127, 0.6);
-}
-
-/* Create Section */
-.create-card-section {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    text-align: left;
-}
-
-.create-card-section h2 {
-    text-align: center;
-    font-size: 1.4rem;
-    color: #00ffff;
-    margin-bottom: 20px;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-    color: #ccc;
-}
-
-input[type="text"], textarea {
-    width: 100%;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    outline: none;
-    font-family: 'Poppins', sans-serif;
-}
-
-input[type="text"]:focus, textarea:focus {
-    border-color: #00ffff;
-}
-
-input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-size: 0.9rem;
-}
-
-#generated-link-box {
-    margin-top: 20px;
-    background: rgba(0, 255, 255, 0.1);
+.message-box {
+    font-size: 18px;
+    margin: 20px 0;
+    background: rgba(0,0,0,0.2);
     padding: 15px;
     border-radius: 10px;
-    border: 1px dashed #00ffff;
 }
 
-#generated-link-box p {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    color: #00ffff;
+/* Creator Section */
+.creator-section {
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
 }
 
-.copy-btn {
-    background: linear-gradient(45deg, #00b4db, #0083b0);
-    margin-top: 10px;
+.creator-section h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ff416c;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+.form-group {
+    margin-bottom: 15px;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 15px #ff007f; }
-    50% { transform: scale(1.05); box-shadow: 0 0 30px #ff007f; }
-    100% { transform: scale(1); box-shadow: 0 0 15px #ff007f; }
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.btn-create {
+    background: #ff416c;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-create:hover {
+    background: #e0355b;
 }
